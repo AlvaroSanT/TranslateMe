@@ -1,3 +1,5 @@
+package com.alvaro.translateme
+
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
