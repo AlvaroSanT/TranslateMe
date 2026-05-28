@@ -1,5 +1,3 @@
-package com.alvaro.translateme
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import translation.TranslateUseCase
