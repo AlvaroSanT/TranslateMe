@@ -1,9 +1,8 @@
-package com.alvaro.ui
+package com.alvaro.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.alvaro.ui.BorderRadius
+import com.alvaro.ui.BorderWidth
+import com.alvaro.ui.ColorPrimaryTextFieldBackground
+import com.alvaro.ui.ColorPrimaryTextFieldBorder
+import com.alvaro.ui.ColorPrimaryTextFieldText
+import com.alvaro.ui.Padding
 
 @Composable
 fun PrimaryTextField(
