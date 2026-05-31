@@ -46,4 +46,6 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.mlkit.translate)
+    implementation(libs.mlkit.language.id)
 }

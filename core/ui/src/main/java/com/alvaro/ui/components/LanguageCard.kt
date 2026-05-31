@@ -1,0 +1,61 @@
+package com.alvaro.ui.components
+
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import coil.compose.AsyncImage
+import com.alvaro.ui.ColorArrowForward
+import com.alvaro.ui.Padding
+import com.alvaro.ui.R
+import com.alvaro.ui.Size
+
+@Composable
+fun LanguageCard(
+    languageName: String,
+    languageCode: String,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier.padding(horizontal = Padding.XL, vertical = Padding.S),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        AsyncImage(
+            model = "https://hatscripts.github.io/circle-flags/flags/language/${languageCode}.svg",
+            contentDescription = "Flag of $languageName",
+            modifier = Modifier.size(Size.XXL)
+        )
+
+        Spacer(modifier = Modifier.width(Padding.M))
+
+        PrimaryText(
+            text = languageName,
+            modifier = Modifier.weight(1f)
+        )
+
+        Icon(
+            painter = painterResource(id = R.drawable.arrow_right),
+            contentDescription = "Language Icon",
+            tint = ColorArrowForward,
+            modifier = Modifier.size(Size.XXL)
+        )
+
+    }
+}
+
+@Preview
+@Composable
+private fun LanguageCardPreview() {
+    LanguageCard(
+        languageName = "English",
+        languageCode = "en"
+    )
+}
