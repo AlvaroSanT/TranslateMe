@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.alvaro.ui.ColorArrowForward
@@ -29,7 +30,7 @@ fun LanguageCard(
     ) {
 
         AsyncImage(
-            model = "https://hatscripts.github.io/circle-flags/flags/language/${languageCode}.svg",
+            model = stringResource(R.string.language_flag_url, languageCode),
             contentDescription = "Flag of $languageName",
             modifier = Modifier.size(Size.XXL)
         )
