@@ -6,17 +6,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
+import com.alvaro.ui.ColorPrimaryText
 import com.alvaro.ui.FontSize
 
 @Composable
 fun PrimaryText(
-    value: String,
-    fontSize: TextUnit,
-    textColor: Color,
-    modifier: Modifier = Modifier
+    text: String,
+    modifier: Modifier = Modifier,
+    fontSize: TextUnit = FontSize.L,
+    textColor: Color = ColorPrimaryText,
 ) {
     Text(
-        text = value,
+        text = text,
         color = textColor,
         fontSize = fontSize,
         modifier = modifier
@@ -27,7 +28,7 @@ fun PrimaryText(
 @Composable
 private fun PrimaryTextPreview() {
     PrimaryText(
-        value = "Hola",
+        text = "Hola",
         fontSize = FontSize.L,
         textColor = Color.Black
     )

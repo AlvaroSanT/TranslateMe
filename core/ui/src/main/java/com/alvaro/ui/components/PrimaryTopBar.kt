@@ -1,6 +1,5 @@
 package com.alvaro.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -15,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.alvaro.ui.BorderRadius
 import com.alvaro.ui.BorderWidth
 import com.alvaro.ui.ColorPrimaryTextFieldText
-import com.alvaro.ui.ColorPrimaryTopBarBackground
 import com.alvaro.ui.ColorPrimaryTopBarBorder
 import com.alvaro.ui.ColorPrimaryTopBarHint
 import com.alvaro.ui.FontSize
@@ -31,7 +29,6 @@ fun PrimaryTopBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(ColorPrimaryTopBarBackground)
             .padding(horizontal = Padding.XL, vertical = Padding.M)
             .border(
                 width = BorderWidth.XS,
@@ -56,7 +53,7 @@ fun PrimaryTopBar(
                 Box {
                     if (value.isEmpty() && hint.isNotEmpty()) {
                         PrimaryText(
-                            value = hint,
+                            text = hint,
                             fontSize = FontSize.L,
                             textColor = ColorPrimaryTopBarHint
                         )
