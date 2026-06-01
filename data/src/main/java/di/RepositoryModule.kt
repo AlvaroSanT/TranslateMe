@@ -1,11 +1,13 @@
 package com.alvaro.data.di
 
 import com.alvaro.data.translations.TranslationRepositoryImpl
-import translation.TranslationRepository
+import com.alvaro.data.user.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import translation.TranslationRepository
+import user.UserRepository
 import javax.inject.Singleton
 
 @Module
@@ -17,4 +19,10 @@ abstract class RepositoryModule {
     abstract fun bindTranslationRepository(
         translationRepositoryImpl: TranslationRepositoryImpl
     ): TranslationRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUserRepository(
+        userRepositoryImpl: UserRepositoryImpl
+    ): UserRepository
 }

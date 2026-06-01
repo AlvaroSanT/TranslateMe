@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ui</string>
+    <string name="language_flag_url">"https://hatscripts.github.io/circle-flags/flags/language/%s.svg"</string>
 </resources>

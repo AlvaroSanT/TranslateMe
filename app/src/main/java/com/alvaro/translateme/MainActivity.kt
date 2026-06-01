@@ -4,29 +4,27 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.alvaro.ui.BorderWidth
+import com.alvaro.ui.ColorBackground
+import com.alvaro.ui.ColorSeparator
 import com.alvaro.ui.Padding
-import com.alvaro.ui.PrimaryButton
-import com.alvaro.ui.PrimaryTextField
 import com.alvaro.ui.Spacing
+import com.alvaro.ui.components.LanguageCard
+import com.alvaro.ui.components.PrimaryTopBar
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -35,48 +33,47 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val viewModel: MainViewmodel = hiltViewModel()
-            val uiState by viewModel.uiState.collectAsState()
+            val uiState = viewModel.uiState.collectAsState()
 
-            Scaffold { contentPadding ->
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(contentPadding),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    var textToTranslate by remember { mutableStateOf("") }
-
-                    PrimaryTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = Padding.M),
-                        value = textToTranslate,
+            Scaffold(
+                modifier = Modifier
+                    .background(ColorBackground)
+                    .statusBarsPadding()
+                    .fillMaxSize(),
+                topBar = {
+                    PrimaryTopBar(
+                        value = uiState.value.languageQuery,
                         onValueChange = {
-                            textToTranslate = it
-                        }
+                            viewModel.onLanguageQueryChange(it)
+                        },
+                        hint = stringResource(R.string.which_language_do_you_study)
                     )
-
-                    Spacer(modifier = Modifier.height(Spacing.M))
-
-                    PrimaryButton(
-                        text = "Traducir",
-                        onClick = {
-                            viewModel.translate(
-                                textToTranslate,
-                                "EN",
-                                "ES"
+                }
+            ) { contentPadding ->
+                val filteredLanguages = uiState.value.languages.filter {
+                    it.name.lowercase().startsWith(
+                        uiState.value.languageQuery.lowercase()
+                    )
+                }
+                LazyColumn(
+                    modifier = Modifier.padding(contentPadding),
+                    verticalArrangement = Arrangement.spacedBy(Spacing.S)
+                ) {
+                    itemsIndexed(filteredLanguages) { index, language ->
+                        LanguageCard(
+                            languageName = language.name,
+                            languageCode = language.code,
+                            onClick = {
+                                viewModel.onLanguageSelected(language)
+                            }
+                        )
+                        if (index < filteredLanguages.lastIndex) {
+                            HorizontalDivider(
+                                modifier = Modifier.padding(horizontal = Padding.XS),
+                                color = ColorSeparator,
+                                thickness = BorderWidth.XS
                             )
                         }
-                    )
-
-                    Spacer(modifier = Modifier.height(Spacing.M))
-
-                    when (val state = uiState) {
-                        is MainViewmodel.UiState.Loading -> Text("Traduciendo...")
-                        is MainViewmodel.UiState.Success -> Text("Resultado: ${state.translatedText}")
-                        is MainViewmodel.UiState.Error -> Text("Error: ${state.message}")
-                        else -> {}
                     }
                 }
             }
