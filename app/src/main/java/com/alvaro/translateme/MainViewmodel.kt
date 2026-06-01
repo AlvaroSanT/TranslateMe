@@ -11,12 +11,15 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import languages.GetAllLanguagesUseCase
+import user.SaveUserLanguageUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewmodel @Inject constructor(
-    private val getAllLanguagesUseCase: GetAllLanguagesUseCase
+    private val getAllLanguagesUseCase: GetAllLanguagesUseCase,
+    private val saveUserLanguageUseCase: SaveUserLanguageUseCase
 ) : ViewModel() {
 
     private val _languageQuery: MutableStateFlow<String> = MutableStateFlow("")
@@ -50,6 +53,19 @@ class MainViewmodel @Inject constructor(
     fun onLanguageQueryChange(newQuery: String) {
         _languageQuery.update {
             newQuery
+        }
+    }
+
+    fun onLanguageSelected(language: LanguageUiModel) {
+        viewModelScope.launch {
+            saveUserLanguageUseCase(
+                code = language.code,
+                name = language.name
+            ).onSuccess {
+                Log.d("MainViewmodel", "Language ${language.name} saved successfully")
+            }.onFailure {
+                Log.e("MainViewmodel", "Error saving language ${language.name}", it)
+            }
         }
     }
 }

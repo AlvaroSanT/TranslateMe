@@ -1,5 +1,6 @@
 package com.alvaro.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -22,10 +23,13 @@ import com.alvaro.ui.Size
 fun LanguageCard(
     languageName: String,
     languageCode: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.padding(horizontal = Padding.XL, vertical = Padding.S),
+        modifier = modifier
+            .clickable { onClick() }
+            .padding(horizontal = Padding.XL, vertical = Padding.S),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -57,6 +61,7 @@ fun LanguageCard(
 private fun LanguageCardPreview() {
     LanguageCard(
         languageName = "English",
-        languageCode = "en"
+        languageCode = "en",
+        onClick = {}
     )
 }
