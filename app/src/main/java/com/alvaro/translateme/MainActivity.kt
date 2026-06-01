@@ -62,7 +62,10 @@ class MainActivity : ComponentActivity() {
                     itemsIndexed(filteredLanguages) { index, language ->
                         LanguageCard(
                             languageName = language.name,
-                            languageCode = language.code
+                            languageCode = language.code,
+                            onClick = {
+                                viewModel.onLanguageSelected(language)
+                            }
                         )
                         if (index < filteredLanguages.lastIndex) {
                             HorizontalDivider(

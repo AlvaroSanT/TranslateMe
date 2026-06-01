@@ -23,6 +23,8 @@ firebaseBomVersion = "34.13.0"
 mlkitTranslate = "17.0.3"
 mlkitLanguageId = "17.0.6"
 coil = "2.7.0"
+mockito = "5.11.0"
+kotlinxCoroutinesTest = "1.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -58,6 +60,8 @@ mlkit-translate = { group = "com.google.mlkit", name = "translate", version.ref 
 mlkit-language-id = { group = "com.google.mlkit", name = "language-id", version.ref = "mlkitLanguageId" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
