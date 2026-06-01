@@ -2,5 +2,4 @@
     <string name="app_name">TranslateMe</string>
 
     // Languages Screen
-    <string name="which_language_do_you_study">¿Qué idioma quieres estudiar?</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.alvaro.ui.components
+package com.alvaro.feature.language.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -18,6 +18,7 @@ import com.alvaro.ui.ColorArrowForward
 import com.alvaro.ui.Padding
 import com.alvaro.ui.R
 import com.alvaro.ui.Size
+import com.alvaro.ui.components.PrimaryText
 
 @Composable
 fun LanguageCard(

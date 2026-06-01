@@ -1,8 +1,10 @@
-package com.alvaro.translateme
+package com.alvaro.feature.language.presentation
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alvaro.feature.language.mapper.toUiModel
+import com.alvaro.feature.language.model.LanguageUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
@@ -17,16 +19,13 @@ import user.SaveUserLanguageUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewmodel @Inject constructor(
+class LanguagesViewModel @Inject constructor(
     private val getAllLanguagesUseCase: GetAllLanguagesUseCase,
     private val saveUserLanguageUseCase: SaveUserLanguageUseCase
 ) : ViewModel() {
 
     private val _languageQuery: MutableStateFlow<String> = MutableStateFlow("")
     private val languagesList: StateFlow<List<LanguageUiModel>> = flow {
-        getAllLanguagesUseCase().sortedBy { it.code }.map {
-            Log.d("CODE", it.code)
-        }
         emit(getAllLanguagesUseCase().map {
             it.toUiModel()
         })
@@ -36,18 +35,18 @@ class MainViewmodel @Inject constructor(
         initialValue = emptyList()
     )
 
-    val uiState: StateFlow<MainState> = combine(
+    val uiState: StateFlow<LanguagesState> = combine(
         languagesList,
         _languageQuery
     ) { languages, query ->
-        MainState(
+        LanguagesState(
             languageQuery = query,
             languages = languages
         )
     }.stateIn(
         scope = viewModelScope,
         started = WhileSubscribed(5_000),
-        initialValue = MainState()
+        initialValue = LanguagesState()
     )
 
     fun onLanguageQueryChange(newQuery: String) {
@@ -62,15 +61,15 @@ class MainViewmodel @Inject constructor(
                 code = language.code,
                 name = language.name
             ).onSuccess {
-                Log.d("MainViewmodel", "Language ${language.name} saved successfully")
+                Log.d("LanguagesViewModel", "Language ${language.name} saved successfully")
             }.onFailure {
-                Log.e("MainViewmodel", "Error saving language ${language.name}", it)
+                Log.e("LanguagesViewModel", "Error saving language ${language.name}", it)
             }
         }
     }
 }
 
-data class MainState(
+data class LanguagesState(
     val languageQuery: String = "",
     val languages: List<LanguageUiModel> = emptyList()
 )
