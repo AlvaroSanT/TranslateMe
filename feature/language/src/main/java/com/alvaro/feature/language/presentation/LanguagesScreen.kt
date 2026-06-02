@@ -24,12 +24,13 @@ import com.alvaro.ui.components.PrimaryTopBar
 
 @Composable
 fun LanguagesScreen(
+    modifier: Modifier = Modifier,
     viewModel: LanguagesViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
 
     Scaffold(
-        modifier = Modifier
+        modifier = modifier
             .background(ColorBackground)
             .statusBarsPadding()
             .fillMaxSize(),

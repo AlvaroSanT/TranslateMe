@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 //APP
 val ColorBackground = Color.White
+val ColorUnselectedTabBarItem = Color(0xFF666666)
 
 //TEXT
 val ColorPrimaryText = Color(0xFF333333)
@@ -20,4 +21,4 @@ val ColorPrimaryTopBarBorder = Color(0xFF333333)
 val ColorPrimaryTopBarHint = Color(0xFF999999)
 
 //BUTTON
-val ColorPrimary = Color(0xFF6200EE)
+val ColorPrimary = Color(0xFF2561C9)
