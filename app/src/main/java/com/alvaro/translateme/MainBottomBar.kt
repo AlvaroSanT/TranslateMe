@@ -37,17 +37,17 @@ enum class TopLevelDestination(
     val route: Route
 ) {
     COLLECTIONS(
-        label = com.alvaro.ui.R.string.collections,
-        icon = com.alvaro.ui.R.drawable.ic_collections,
+        label = R.string.collections,
+        icon = R.drawable.ic_collections,
         route = Route.CollectionsRoute
     ),
     PRACTICE(
-        label = com.alvaro.ui.R.string.practice,
-        icon = com.alvaro.ui.R.drawable.ic_test,
+        label = R.string.practice,
+        icon = R.drawable.ic_test,
         route = Route.PracticeRoute
     ),
     STATISTICS(
-        label = com.alvaro.ui.R.string.statistics,
+        label = R.string.statistics,
         icon = R.drawable.ic_statistic,
         route = Route.StatisticsRoute
     )
