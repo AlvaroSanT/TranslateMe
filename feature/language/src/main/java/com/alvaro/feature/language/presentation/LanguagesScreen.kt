@@ -1,10 +1,8 @@
 package com.alvaro.feature.language.presentation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
@@ -30,10 +28,8 @@ fun LanguagesScreen(
     val uiState = viewModel.uiState.collectAsState()
 
     Scaffold(
-        modifier = modifier
-            .background(ColorBackground)
-            .statusBarsPadding()
-            .fillMaxSize(),
+        containerColor = ColorBackground,
+        modifier = modifier.fillMaxSize(),
         topBar = {
             PrimaryTopBar(
                 value = uiState.value.languageQuery,

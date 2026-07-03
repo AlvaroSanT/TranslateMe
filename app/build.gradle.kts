@@ -72,4 +72,5 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":data"))
     implementation(project(":feature:language"))
+    implementation(project(":feature:navigation"))
 }
