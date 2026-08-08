@@ -7,6 +7,7 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import com.alvaro.feature.collections.presentation.CollectionsScreen
+import com.alvaro.feature.collections.presentation.AddTranslationScreen
 import com.alvaro.feature.language.presentation.LanguagesScreen
 import com.alvaro.feature.practice.presentation.PracticeScreen
 import com.alvaro.feature.statistics.presentation.StatisticsScreen
@@ -44,6 +45,9 @@ fun MainNavDisplay(
             }
             entry<Route.StatisticsRoute> {
                 StatisticsScreen()
+            }
+            entry<Route.AddTranslationRoute> {
+                AddTranslationScreen()
             }
         }
     )

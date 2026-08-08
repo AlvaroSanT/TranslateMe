@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import com.alvaro.translateme.navigation.MainNavDisplay
+import com.alvaro.translateme.navigation.Route
+import com.alvaro.ui.components.PrimaryFAB
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,15 +28,29 @@ class MainActivity : ComponentActivity() {
             
             if (isReady) {
                 val currentTab by viewModel.currentTab
-                val isBottomBarVisible = currentTab != null
+                val currentScreen = viewModel.backStack.lastOrNull()
+                val isPrincipalScreen = currentScreen in listOf(
+                    Route.PracticeRoute,
+                    Route.CollectionsRoute,
+                    Route.StatisticsRoute
+                )
                 
                 Scaffold(
                     bottomBar = {
-                        if (isBottomBarVisible) {
+                        if (isPrincipalScreen) {
                             MainBottomBar(
                                 currentTab = currentTab!!,
                                 onTabSelected = { route ->
                                     viewModel.handleIntent(MainIntent.SwitchTab(route))
+                                }
+                            )
+                        }
+                    },
+                    floatingActionButton = {
+                        if (isPrincipalScreen) {
+                            PrimaryFAB(
+                                onClick = {
+                                    viewModel.handleIntent(MainIntent.SwitchTab(Route.AddTranslationRoute))
                                 }
                             )
                         }

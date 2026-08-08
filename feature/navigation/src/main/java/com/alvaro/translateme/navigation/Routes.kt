@@ -19,4 +19,7 @@ sealed interface Route: NavKey {
     // Ejemplo de ruta con argumentos
     @Serializable
     data object StatisticsRoute : Route
+
+    @Serializable
+    data object AddTranslationRoute : Route
 }
