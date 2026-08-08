@@ -14,16 +14,40 @@ import javax.inject.Singleton
 class NavigationManager @Inject constructor() {
     
     // Pila única de navegación (Source of Truth)
-    private val _backStack = mutableStateListOf<Route>(Route.PracticeRoute)
+    private val _backStack = mutableStateListOf<Route>()
     val backStack: List<Route> = _backStack
+
+    /**
+     * Establece la ruta inicial de la aplicación.
+     * Útil si se decide la pantalla de inicio dinámicamente al arrancar.
+     */
+    fun setInitialRoute(route: Route) {
+        if (_backStack.isEmpty()) {
+            _backStack.add(route)
+        }
+    }
 
     /**
      * Identifica la pestaña actualmente activa buscando la ruta raíz más reciente en la pila.
      */
-    val currentTab: State<Route> = derivedStateOf {
+    val currentTab: State<Route?> = derivedStateOf {
         _backStack.lastOrNull { 
-            it is Route.PracticeRoute || it is Route.CollectionsRoute || it is Route.StatisticsRoute 
-        } ?: Route.PracticeRoute
+            (it is Route.PracticeRoute || it is Route.CollectionsRoute || it is Route.StatisticsRoute)
+        }
+    }
+    
+    /**
+     * Navega a una nueva ruta y elimina la pila anterior hasta una ruta específica (inclusive o no).
+     */
+    fun navigateAndPopUpTo(route: Route, popUpTo: Route, inclusive: Boolean = false) {
+        val index = _backStack.indexOfLast { it == popUpTo }
+        if (index != -1) {
+            val removeUntil = if (inclusive) index else index + 1
+            if (removeUntil < _backStack.size) {
+                _backStack.subList(removeUntil, _backStack.size).clear()
+            }
+        }
+        navigateTo(route)
     }
 
     /**

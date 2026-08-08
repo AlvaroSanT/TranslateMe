@@ -8,6 +8,7 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import com.alvaro.feature.collections.presentation.CollectionsScreen
 import com.alvaro.feature.language.presentation.LanguagesScreen
+import com.alvaro.feature.practice.presentation.PracticeScreen
 import com.alvaro.feature.statistics.presentation.StatisticsScreen
 
 /**
@@ -36,6 +37,9 @@ fun MainNavDisplay(
                 CollectionsScreen()
             }
             entry<Route.PracticeRoute> {
+                PracticeScreen()
+            }
+            entry<Route.LanguagesRoute> {
                 LanguagesScreen()
             }
             entry<Route.StatisticsRoute> {

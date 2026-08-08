@@ -10,7 +10,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.getValue
 import com.alvaro.translateme.navigation.MainNavDisplay
-import com.alvaro.translateme.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,18 +21,24 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val currentTab by viewModel.currentTab
+            val isReady by viewModel.isReady
             
-            Scaffold(
-                bottomBar = {
-                    MainBottomBar(
-                        currentTab = currentTab,
-                        onTabSelected = { route ->
-                            viewModel.handleIntent(MainIntent.SwitchTab(route))
+            if (isReady) {
+                val currentTab by viewModel.currentTab
+                val isBottomBarVisible = currentTab != null
+                
+                Scaffold(
+                    bottomBar = {
+                        if (isBottomBarVisible) {
+                            MainBottomBar(
+                                currentTab = currentTab!!,
+                                onTabSelected = { route ->
+                                    viewModel.handleIntent(MainIntent.SwitchTab(route))
+                                }
+                            )
                         }
-                    )
-                }
-            ) { innerPadding ->
+                    }
+                ) { innerPadding ->
                 MainNavDisplay(
                     backStack = viewModel.backStack,
                     onBack = {
@@ -41,6 +46,7 @@ class MainActivity : ComponentActivity() {
                     },
                     modifier = Modifier.padding(innerPadding)
                 )
+                }
             }
         }
     }

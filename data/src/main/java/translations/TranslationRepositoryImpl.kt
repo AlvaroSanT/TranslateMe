@@ -1,5 +1,6 @@
 package com.alvaro.data.translations
 
+import android.util.Log
 import com.alvaro.data.translations.api.DeepLApi
 import translation.TranslationRepository
 import okhttp3.OkHttpClient
@@ -33,6 +34,7 @@ class TranslationRepositoryImpl @Inject constructor() : TranslationRepository {
         sourceLanguage: String,
         targetLanguage: String
     ): Result<String> {
+        Log.d("TranslationRepositoryImpl", "translate: text=\"$text\", source=$sourceLanguage, target=$targetLanguage")
         return try {
             val response = api.translate(
                 authKey = apiKey,
@@ -42,10 +44,16 @@ class TranslationRepositoryImpl @Inject constructor() : TranslationRepository {
             )
 
             val translatedText = response.translations.firstOrNull()?.text
-                ?: return Result.failure(Exception("No translation found"))
-
-            Result.success(translatedText)
+            
+            if (translatedText != null) {
+                Log.d("TranslationRepositoryImpl", "Translation success: $translatedText")
+                Result.success(translatedText)
+            } else {
+                Log.e("TranslationRepositoryImpl", "Translation error: No translation found in response")
+                Result.failure(Exception("No translation found"))
+            }
         } catch (e: Exception) {
+            Log.e("TranslationRepositoryImpl", "Translation exception", e)
             Result.failure(e)
         }
     }
