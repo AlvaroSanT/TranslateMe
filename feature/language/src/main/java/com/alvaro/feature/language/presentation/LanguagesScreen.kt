@@ -1,16 +1,16 @@
 package com.alvaro.feature.language.presentation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,15 +24,14 @@ import com.alvaro.ui.components.PrimaryTopBar
 
 @Composable
 fun LanguagesScreen(
+    modifier: Modifier = Modifier,
     viewModel: LanguagesViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsState()
 
     Scaffold(
-        modifier = Modifier
-            .background(ColorBackground)
-            .statusBarsPadding()
-            .fillMaxSize(),
+        containerColor = ColorBackground,
+        modifier = modifier.fillMaxSize(),
         topBar = {
             PrimaryTopBar(
                 value = uiState.value.languageQuery,

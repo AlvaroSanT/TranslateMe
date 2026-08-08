@@ -1,5 +1,6 @@
 package translation
 
+import android.util.Log
 import javax.inject.Inject
 
 class TranslateUseCase @Inject constructor(
@@ -10,6 +11,13 @@ class TranslateUseCase @Inject constructor(
         sourceLanguage: String,
         targetLanguage: String
     ): Result<String> {
-        return repository.translate(text, sourceLanguage, targetLanguage)
+        Log.d("TranslateUseCase", "Translating: \"$text\" from $sourceLanguage to $targetLanguage")
+        val result = repository.translate(text, sourceLanguage, targetLanguage)
+        result.onSuccess {
+            Log.d("TranslateUseCase", "Translation successful: $it")
+        }.onFailure {
+            Log.e("TranslateUseCase", "Translation failed", it)
+        }
+        return result
     }
 }

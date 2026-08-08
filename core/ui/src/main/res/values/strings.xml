@@ -1,4 +1,7 @@
 <resources>
     <string name="language_flag_url">"https://hatscripts.github.io/circle-flags/flags/language/%s.svg"</string>
     <string name="which_language_do_you_study">¿Qué idioma quieres estudiar?</string>
+    <string name="collections">Colecciones</string>
+    <string name="practice">Practica</string>
+    <string name="statistics">Estadísticas</string>
 </resources>

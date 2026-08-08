@@ -1,0 +1,1 @@
+-keep,allowobfuscation,allowshrinking class com.alvaro.feature.language.presentation.LanguagesViewModel

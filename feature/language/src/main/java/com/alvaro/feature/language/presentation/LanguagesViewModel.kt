@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
@@ -26,9 +27,11 @@ class LanguagesViewModel @Inject constructor(
 
     private val _languageQuery: MutableStateFlow<String> = MutableStateFlow("")
     private val languagesList: StateFlow<List<LanguageUiModel>> = flow {
+        Log.d("LanguagesViewModel", "Fetching languages...")
         emit(getAllLanguagesUseCase().map {
             it.toUiModel()
         })
+        Log.d("LanguagesViewModel", "Languages fetched successfully")
     }.stateIn(
         scope = viewModelScope,
         started = WhileSubscribed(5_000),
@@ -39,6 +42,7 @@ class LanguagesViewModel @Inject constructor(
         languagesList,
         _languageQuery
     ) { languages, query ->
+        Log.d("LanguagesViewModel", "Updating uiState with query: $query")
         LanguagesState(
             languageQuery = query,
             languages = languages
@@ -50,12 +54,14 @@ class LanguagesViewModel @Inject constructor(
     )
 
     fun onLanguageQueryChange(newQuery: String) {
+        Log.d("LanguagesViewModel", "onLanguageQueryChange: $newQuery")
         _languageQuery.update {
             newQuery
         }
     }
 
     fun onLanguageSelected(language: LanguageUiModel) {
+        Log.d("LanguagesViewModel", "onLanguageSelected: ${language.name}")
         viewModelScope.launch {
             saveUserLanguageUseCase(
                 code = language.code,
