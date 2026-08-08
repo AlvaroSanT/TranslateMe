@@ -13,3 +13,15 @@ build/
 .externalNativeBuild
 .cxx
 local.properties
+
+# Additional common Android/Java ignores
+*.class
+*.log
+bin/
+gen/
+out/
+*.apk
+*.aar
+# Ignore all jar files unless they are in a libs folder
+*.jar
+!**/libs/*.jar
